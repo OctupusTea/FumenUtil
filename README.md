@@ -1,3 +1,20 @@
+# MirrorFumen
+Mirrors a fumen
+
+Does every page, mirrors the board along with mirrored colors and mirrored piece placements
+
+
+# UngluingFumens
+Turning multi-page fumens into single-paged fumens with color coded pieces
+
+# Command
+```node unglueFumen.js fumencode [fumenCode...]```
+
+Example:
+```node unglueFumen.js v115@7gD8CeG8CeH8BeH8BeE8JeT1IvhFmXBCZBxbB0bBdr?B/qB```
+Would output
+```v115@pgRpBti0ilRpzhg0glD8Q4BtG8R4wwH8xwH8Q4wwE8?JeAgH```
+
 # GluingFumens
 Turning single page fumens with color coded pieces into multipage fumens with a piece on each page  
 
