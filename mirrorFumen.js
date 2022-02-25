@@ -60,7 +60,10 @@ for (let code of fumenCodes) {
         if (op) {
             op.type = reverseMappingLetters[op.type];
             op.x = 9 - op.x;
-            if ("IO".includes(op.type)) op.x--; // thonk
+            if ("IO".includes(op.type)) { // thonk
+                if (op.rotation == "reverse") op.x++;
+                else op.x--;
+            }
             if ("SZLJT".includes(op.type)) op.rotation = reverseMappingRotation[op.rotation];
         }
 
