@@ -1,3 +1,7 @@
+# FumenUtil
+Fumen Utils. Commands currently supported:
+canvas, split, combine, glue, unglue
+
 # FumenCombiner
 Combines multiple fumens into a single multi-page fumens
 
