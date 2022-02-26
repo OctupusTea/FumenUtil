@@ -62,7 +62,9 @@ for (let code of fumenCodes) {
             op.x = 9 - op.x;
             if ("IO".includes(op.type)) { // thonk
                 if (op.rotation == "reverse") op.x++;
-                else op.x--;
+                else if (op.rotation == "left" && op.type == "O") op.x++;
+                else if (op.rotation == "spawn" || op.type == "O") op.x--;
+
             }
             if ("SZLJT".includes(op.type)) op.rotation = reverseMappingRotation[op.rotation];
         }
