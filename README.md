@@ -89,3 +89,5 @@ Would output
 # Dependencies  
 ```npm install hashmap``` - hashmap  
 ```npm install tetris-fumen``` - [fumen api](https://github.com/knewjade/tetris-fumen)   
+```npm install canvas``` - canvas
+```npm install gifencoder``` - gifencoder
