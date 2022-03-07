@@ -4,7 +4,7 @@
     </head>
 	<body>
         <h1>Fumen Utils</h1>
-        Input in the input box, then click button for which util you want to use. Output text will go into clipboard, console, and the output box.
+        Input in the input box, then click button for which util you want to use.
         <br><br>
 		<b>Input:</b>
         <br>
@@ -12,11 +12,18 @@
         <br>
         <button onclick="glueFumen()">Glue</button>
         <button onclick="mirrorFumen()">Mirror</button>
+        <button onclick="combineFumen()">Combine</button>
+        <button onclick="splitFumen()">Split</button>
         <br><br>
         <b>Output:</b>
         <br>
         <textarea id="output" name="output" rows="8" cols="100"></textarea>
+        <br>
+        <button onclick="navigator.clipboard.writeText(document.getElementById('output').value)">Copy to Clipboard</button>
 	</body>
     <script src="./tetris-fumen.js"></script>
     <script src="./modified-glueFumen.js"></script>
+    <script src="./modified-mirrorFumen.js"></script>
+    <script src="./modified-combineFumen.js"></script>
+    <script src="./modified-splitFumen.js"></script>
 </html>
