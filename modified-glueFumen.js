@@ -303,5 +303,4 @@ function glueFumen() {
 
     console.log(allFumens.join(' '));
     document.getElementById("output").value = allFumens.join('\n');
-    navigator.clipboard.writeText(allFumens.join(' '));
 }

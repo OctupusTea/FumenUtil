@@ -1,0 +1,19 @@
+// const { decoder, encoder } = require('tetris-fumen');
+
+function splitFumen() {
+    var fumenCodes = [];
+    results = [];
+    input = document.getElementById('input').value;
+    for (let rawInput of input.split("\t")) {
+        fumenCodes.push(...rawInput.split(" "));
+    }
+
+    for (let code of fumenCodes) {
+        let inputPages = decoder.decode(code);
+        for (let i = 0; i < inputPages.length; i++) {
+            results.push(encoder.encode([inputPages[i]]));
+        }
+    }
+    console.log(results.join(' '));
+    document.getElementById("output").value = results.join('\n');
+}
