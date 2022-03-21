@@ -153,7 +153,7 @@ function fumencanvas() {
 	results = [];
 	input = document.getElementById('input').value;
 	for (let rawInput of input.split('\t')) {
-		fumenCodes.push(...rawInput.split(' '));
+		fumenCodes.push(...rawInput.split(/\s/));
 	}
 
 	for (let code of fumenCodes) {

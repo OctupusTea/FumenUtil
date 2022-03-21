@@ -260,7 +260,7 @@ function glueFumen() {
 	var fumenCodes = [];
 	input = document.getElementById('input').value;
 	for (let rawInput of input.split("\t")) { // tabs
-		fumenCodes.push(...rawInput.split('/ |\n|\t/'));
+		fumenCodes.push(...rawInput.split(/\s/));
     }
 	var allPiecesArr = [];
 	var allFumens = [];
