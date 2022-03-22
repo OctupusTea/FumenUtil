@@ -119,7 +119,7 @@ function drawFumens(fumenPages, tilesize, numrows, start, end, transparent) {
 	canvas.width = width;
 	canvas.height = height;
 	const ctx = canvas.getContext('2d');
-    const encoder = new GIFEncoder();
+	const encoder = new GIFEncoder();
 	encoder.start();
 	encoder.setRepeat(0); // 0 for repeat, -1 for no-repeat
 	encoder.setDelay(500); // frame delay in ms
@@ -127,12 +127,12 @@ function drawFumens(fumenPages, tilesize, numrows, start, end, transparent) {
 	if (transparent) {
 		encoder.setTransparent('rgba(0, 0, 0, 0)');
 	}
-    for (x = start; x < end; x++) {
-        frame = draw(fumenPages[x], tilesize, numrows, transparent).getContext('2d');
-        encoder.addFrame(frame);
-    }
-    encoder.finish();
-    // encoder.download('download.gif');
+	for (x = start; x < end; x++) {
+		frame = draw(fumenPages[x], tilesize, numrows, transparent).getContext('2d');
+		encoder.addFrame(frame);
+	}
+	encoder.finish();
+	// encoder.download('download.gif');
 	return encoder;
 }
 
@@ -169,7 +169,11 @@ function fumencanvas() {
 			documentCanvas.height = canvas.height;
 			documentCanvas.width = canvas.width;
 
+			results.push(canvas);
+
 			ctx.drawImage(canvas, 0, 0);
+
+			documentCanvas.style.border = '5px solid #555';
 		}
 		if (pages.length > 1) {
 			gif = drawFumens(pages, cellSize, height, start, end, transparent);
@@ -180,7 +184,10 @@ function fumencanvas() {
             img.style.padding = '18px';
             img.src = data_url;
 
+			img.style.border = '5px solid #555';
+
             container.appendChild(img);
+			results.push(gif);
 		}
 	}
 }
