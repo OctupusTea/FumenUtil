@@ -48,33 +48,35 @@ function mirrorFumen() {
     }
 
     for (let code of fumenCodes) {
-        let inputPages = decoder.decode(code);
-        for (let i = 0; i < inputPages.length; i++) {
+        try {
+            let inputPages = decoder.decode(code);
+            for (let i = 0; i < inputPages.length; i++) {
 
-            board = inputPages[i]["_field"]["field"]["pieces"];
-            for (let rowIndex = 0; rowIndex < 23; rowIndex++) {
-                row = board.slice(rowIndex * 10, (rowIndex + 1) * 10);
-                for (let colIndex = 0; colIndex < 10; colIndex++) {
-                    board[rowIndex * 10 + colIndex] = reverseMapping[row[9 - colIndex]];
+                board = inputPages[i]["_field"]["field"]["pieces"];
+                for (let rowIndex = 0; rowIndex < 23; rowIndex++) {
+                    row = board.slice(rowIndex * 10, (rowIndex + 1) * 10);
+                    for (let colIndex = 0; colIndex < 10; colIndex++) {
+                        board[rowIndex * 10 + colIndex] = reverseMapping[row[9 - colIndex]];
+                    }
                 }
+
+                op = inputPages[i]["operation"];
+                if (op) {
+                    op.type = reverseMappingLetters[op.type];
+                    op.x = 9 - op.x;
+                    if ("IO".includes(op.type)) { // thonk
+                        if (op.rotation == "reverse") op.x++;
+                        else if (op.rotation == "left" && op.type == "O") op.x++;
+                        else if (op.rotation == "spawn" || op.type == "O") op.x--;
+
+                    }
+                    if ("SZLJT".includes(op.type)) op.rotation = reverseMappingRotation[op.rotation];
+                }
+
             }
 
-            op = inputPages[i]["operation"];
-            if (op) {
-                op.type = reverseMappingLetters[op.type];
-                op.x = 9 - op.x;
-                if ("IO".includes(op.type)) { // thonk
-                    if (op.rotation == "reverse") op.x++;
-                    else if (op.rotation == "left" && op.type == "O") op.x++;
-                    else if (op.rotation == "spawn" || op.type == "O") op.x--;
-
-                }
-                if ("SZLJT".includes(op.type)) op.rotation = reverseMappingRotation[op.rotation];
-            }
-
-        }
-
-        results.push(encoder.encode(inputPages));
+            results.push(encoder.encode(inputPages));
+        } catch (error) { console.log(code, error); }
     }
 
     console.log(results.join(' '));

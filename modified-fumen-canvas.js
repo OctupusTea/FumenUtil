@@ -156,38 +156,40 @@ function fumencanvas() {
 		fumenCodes.push(...rawInput.split(/\s/));
 	}
 
-	for (let code of fumenCodes) {
-		var pages = decoder.decode(code);
-		if (pages.length == 1) {
-			canvas = draw(pages[0], cellSize, height, transparent);
+    for (let code of fumenCodes) {
+        try {
+            var pages = decoder.decode(code);
+            if (pages.length == 1) {
+                canvas = draw(pages[0], cellSize, height, transparent);
 
-			documentCanvas = document.createElement('canvas');
-			documentCanvas.style.padding = '18px';
-			container.appendChild(documentCanvas);
+                documentCanvas = document.createElement('canvas');
+                documentCanvas.style.padding = '18px';
+                container.appendChild(documentCanvas);
 
-			var ctx = documentCanvas.getContext('2d');
-			documentCanvas.height = canvas.height;
-			documentCanvas.width = canvas.width;
+                var ctx = documentCanvas.getContext('2d');
+                documentCanvas.height = canvas.height;
+                documentCanvas.width = canvas.width;
 
-			results.push(canvas);
+                results.push(canvas);
 
-			ctx.drawImage(canvas, 0, 0);
+                ctx.drawImage(canvas, 0, 0);
 
-			documentCanvas.style.border = '5px solid #555';
-		}
-		if (pages.length > 1) {
-			gif = drawFumens(pages, cellSize, height, start, end, transparent);
+                documentCanvas.style.border = '5px solid #555';
+            }
+            if (pages.length > 1) {
+                gif = drawFumens(pages, cellSize, height, start, end, transparent);
 
-            var binary_gif = gif.stream().getData(); //notice this is different from the as3gif package!
-			var data_url = 'data:image/gif;base64,' + encode64(binary_gif);
-            var img = document.createElement('img');
-            img.style.padding = '18px';
-            img.src = data_url;
+                var binary_gif = gif.stream().getData(); //notice this is different from the as3gif package!
+                var data_url = 'data:image/gif;base64,' + encode64(binary_gif);
+                var img = document.createElement('img');
+                img.style.padding = '18px';
+                img.src = data_url;
 
-			img.style.border = '5px solid #555';
+                img.style.border = '5px solid #555';
 
-            container.appendChild(img);
-			results.push(gif);
-		}
+                container.appendChild(img);
+                results.push(gif);
+            }
+        } catch (error) { console.log(code, error); }
 	}
 }

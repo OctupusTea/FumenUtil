@@ -79,55 +79,57 @@ function unglueFumen() {
     }
 
     for (let code of fumenCodes) {
-        let inputPages = decoder.decode(code);
-        board = inputPages[0]["_field"]["field"]["pieces"];
-        rowsCleared = [];
+        try {
+            let inputPages = decoder.decode(code);
+            board = inputPages[0]["_field"]["field"]["pieces"];
+            rowsCleared = [];
 
-        for (let pageNum = 0; pageNum < inputPages.length; pageNum++) {
-            op = inputPages[pageNum]["operation"];
-            piece = pieces[op["type"]][rotationMapping[op["rotation"]]];
+            for (let pageNum = 0; pageNum < inputPages.length; pageNum++) {
+                op = inputPages[pageNum]["operation"];
+                piece = pieces[op["type"]][rotationMapping[op["rotation"]]];
 
-            for (let mino of piece) {
-                yIndex = op.y + mino[0];
-                yIndex = clearedOffset(rowsCleared, yIndex);
-                xIndex = op.x + mino[1];
-                index = yIndex * 10 + xIndex;
-                if (board[index] != 0) { console.log("error"); } // some intersect with the board
-                board[index] = colorMapping[op["type"]];
-            }
+                for (let mino of piece) {
+                    yIndex = op.y + mino[0];
+                    yIndex = clearedOffset(rowsCleared, yIndex);
+                    xIndex = op.x + mino[1];
+                    index = yIndex * 10 + xIndex;
+                    if (board[index] != 0) { console.log("error"); } // some intersect with the board
+                    board[index] = colorMapping[op["type"]];
+                }
 
-            temp = [];
+                temp = [];
 
-            for (let y = -2; y < 3; y++) { // rows in which the piece might have been
-                yIndex = op.y + y;
-                yIndex = clearedOffset(rowsCleared, yIndex);
-                if (yIndex >= 0) { // sanity check
-                    rowCleared = true;
-                    for (let x = 0; x < 10; x++) {
-                        index = yIndex * 10 + x;
-                        rowCleared = rowCleared && (board[index] != 0);
-                    }
-                    if (rowCleared) {
-                        temp.push(yIndex);
+                for (let y = -2; y < 3; y++) { // rows in which the piece might have been
+                    yIndex = op.y + y;
+                    yIndex = clearedOffset(rowsCleared, yIndex);
+                    if (yIndex >= 0) { // sanity check
+                        rowCleared = true;
+                        for (let x = 0; x < 10; x++) {
+                            index = yIndex * 10 + x;
+                            rowCleared = rowCleared && (board[index] != 0);
+                        }
+                        if (rowCleared) {
+                            temp.push(yIndex);
+                        }
                     }
                 }
-            }
 
-            for (let row of temp) {
-                if (!rowsCleared.includes(row)) {
-                    rowsCleared.push(row);
-                    rowsCleared.sort();
+                for (let row of temp) {
+                    if (!rowsCleared.includes(row)) {
+                        rowsCleared.push(row);
+                        rowsCleared.sort();
+                    }
                 }
-            }
             
-        }
+            }
 
-        let outputPages = [inputPages[0]]; // lazily generating output fumen by destructively modifying the input
-        outputPages[0]["operation"] = undefined;
-        outputPages[0]["_field"]["field"]["pieces"] = board;
+            let outputPages = [inputPages[0]]; // lazily generating output fumen by destructively modifying the input
+            outputPages[0]["operation"] = undefined;
+            outputPages[0]["_field"]["field"]["pieces"] = board;
 
-        results.push(encoder.encode(outputPages));
-
+            results.push(encoder.encode(outputPages));
+            
+        } catch (error) { console.log(code, error); }
     }
 
     console.log(results.join(' '));

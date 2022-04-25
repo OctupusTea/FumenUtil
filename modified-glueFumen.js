@@ -265,37 +265,40 @@ function glueFumen() {
 	var allPiecesArr = [];
 	var allFumens = [];
 	var fumenIssues = 0;
-	for (let code of fumenCodes) {
-		let inputPages = decoder.decode(code);
-		for (let pageNum = 0; pageNum < inputPages.length; pageNum++) {
-			let field = inputPages[pageNum].field;
-			field = removeLineClears(field);
-			const height = field.str().split('\n').length - 1;
-			let emptyField = makeEmptyField(field, height);
-			allPiecesArr = [];
+    for (let code of fumenCodes) {
+        try {
 
-			scanField(0, height - 1, field, []);
+            let inputPages = decoder.decode(code);
+            for (let pageNum = 0; pageNum < inputPages.length; pageNum++) {
+                let field = inputPages[pageNum].field;
+                field = removeLineClears(field);
+                const height = field.str().split('\n').length - 1;
+                let emptyField = makeEmptyField(field, height);
+                allPiecesArr = [];
 
-			if (allPiecesArr.length == 0) {
-				console.log(code + " couldn't be glued");
-				fumenIssues++;
-			}
+                scanField(0, height - 1, field, []);
 
-			for (let piecesArr of allPiecesArr) {
-				let pages = [];
-				pages.push({
-					field: emptyField,
-					operation: piecesArr[0],
-				});
-				for (let i = 1; i < piecesArr.length; i++) {
-					pages.push({
-						operation: piecesArr[i],
-					});
-				}
-				let pieceFumen = encoder.encode(pages);
-				allFumens.push(pieceFumen);
-			}
-		}
+                if (allPiecesArr.length == 0) {
+                    console.log(code + " couldn't be glued");
+                    fumenIssues++;
+                }
+
+                for (let piecesArr of allPiecesArr) {
+                    let pages = [];
+                    pages.push({
+                        field: emptyField,
+                        operation: piecesArr[0],
+                    });
+                    for (let i = 1; i < piecesArr.length; i++) {
+                        pages.push({
+                            operation: piecesArr[i],
+                        });
+                    }
+                    let pieceFumen = encoder.encode(pages);
+                    allFumens.push(pieceFumen);
+                }
+            }
+        } catch (error) { console.log(code, error); }
 	}
 	if (fumenCodes.length > allFumens.length) {
 		console.log('Warning: ' + fumenIssues + " fumens couldn't be glued");
