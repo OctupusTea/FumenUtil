@@ -2,6 +2,8 @@
 Fumen Utils. Commands currently supported:
 canvas, split, combine, glue, unglue
 
+Also, web interface available at https://swng.github.io/FumenUtil/
+
 # FumenCombiner
 Combines multiple fumens into a single multi-page fumens
 
@@ -89,5 +91,5 @@ Would output
 # Dependencies  
 ```npm install hashmap``` - hashmap  
 ```npm install tetris-fumen``` - [fumen api](https://github.com/knewjade/tetris-fumen)   
-```npm install canvas``` - canvas
+```npm install canvas``` - canvas  
 ```npm install gifencoder``` - gifencoder
