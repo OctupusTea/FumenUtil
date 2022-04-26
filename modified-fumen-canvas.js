@@ -160,7 +160,7 @@ function fumencanvas() {
         try {
             var pages = decoder.decode(code);
             if (pages.length == 1) {
-                canvas = draw(pages[0], cellSize, height, transparent);
+                canvas = draw(pages[0], cellSize, height, true);
 
                 documentCanvas = document.createElement('canvas');
                 documentCanvas.style.padding = '18px';
@@ -177,7 +177,7 @@ function fumencanvas() {
                 documentCanvas.style.border = '5px solid #555';
             }
             if (pages.length > 1) {
-                gif = drawFumens(pages, cellSize, height, start, end, transparent);
+                gif = drawFumens(pages, cellSize, height, start, end, true);
 
                 var binary_gif = gif.stream().getData(); //notice this is different from the as3gif package!
                 var data_url = 'data:image/gif;base64,' + encode64(binary_gif);

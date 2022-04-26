@@ -140,7 +140,7 @@ function fumen_drawFumens(fumenPages, tilesize, numrows, start, end, transparent
 
 cellSize = 22;
 height = undefined;
-transparent = true;
+transparent = false;
 
 start = 0;
 end = undefined;
