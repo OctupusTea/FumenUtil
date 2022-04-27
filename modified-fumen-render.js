@@ -124,7 +124,7 @@ function fumen_drawFumens(fumenPages, tilesize, numrows, start, end, transparent
 	const encoder = new GIFEncoder();
 	encoder.start();
 	encoder.setRepeat(0); // 0 for repeat, -1 for no-repeat
-	encoder.setDelay(500); // frame delay in ms
+	encoder.setDelay(delay); // frame delay in ms
 	encoder.setQuality(1); // image quality. 10 is default.
 	if (transparent) {
 		encoder.setTransparent('rgba(0, 0, 0, 0)');
@@ -141,6 +141,7 @@ function fumen_drawFumens(fumenPages, tilesize, numrows, start, end, transparent
 cellSize = 22;
 height = undefined;
 transparent = false;
+delay = 500;
 
 start = 0;
 end = undefined;
