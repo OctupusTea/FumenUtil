@@ -32,7 +32,7 @@ function fumen_draw(fumenPage, tilesize, numrows, transparent) {
 				}
 			}
 		}
-		numrows += 2;
+		numrows += 1;
 	}
 	const width = tilesize * 10;
 	const height = numrows * tilesize;
@@ -50,6 +50,7 @@ function fumen_draw(fumenPage, tilesize, numrows, transparent) {
     context.fillStyle = '#000000';
 
     gridCtx.fillStyle = '#000000';
+    if (transparent) gridCtx.fillStyle = 'rgba(0, 0, 0, 0)';
 	gridCtx.fillRect(0, 0, tilesize, tilesize);
 	gridCtx.strokeStyle = '#333333';
 	gridCtx.strokeRect(0, 0, tilesize, tilesize);
@@ -65,7 +66,7 @@ function fumen_draw(fumenPage, tilesize, numrows, transparent) {
 	for (i = 0; i < 10; i++) {
 		for (j = 0; j < numrows; j++) {
 			if (field.at(i, j) != '_') {
-				context.fillStyle = fumen_colors[field.at(i, j)].normal;
+				context.fillStyle = fumen_colors[field.at(i, j)].light;
 				context.fillRect(i * tilesize + 1, height - (j + 1) * tilesize + 1, tilesize - 2, tilesize - 2);
 			}
 			if (operation != undefined && operation.positions().filter(operationFilter).length > 0) {
@@ -112,7 +113,7 @@ function fumen_drawFumens(fumenPages, tilesize, numrows, start, end, transparent
 				}
 			}
 		}
-		numrows += 2;
+		numrows += 1;
 	}
 	numrows = Math.min(23, numrows);
 	const width = tilesize * 10;
@@ -140,7 +141,7 @@ function fumen_drawFumens(fumenPages, tilesize, numrows, start, end, transparent
 
 cellSize = 22;
 height = undefined;
-transparent = false;
+transparency_fumen = false;
 delay = 500;
 
 start = 0;
@@ -163,7 +164,7 @@ function fumenrender() {
         try {
             var pages = decoder.decode(code);
             if (pages.length == 1) {
-                canvas = fumen_draw(pages[0], cellSize, height, transparent);
+                canvas = fumen_draw(pages[0], cellSize, height, transparency_fumen);
 
                 documentCanvas = document.createElement('canvas');
                 documentCanvas.style.padding = '18px';
@@ -180,7 +181,7 @@ function fumenrender() {
                 documentCanvas.style.border = '5px solid #555';
             }
             if (pages.length > 1) {
-                gif = fumen_drawFumens(pages, cellSize, height, start, end, transparent);
+                gif = fumen_drawFumens(pages, cellSize, height, start, end, transparency_fumen);
 
                 var binary_gif = gif.stream().getData(); //notice this is different from the as3gif package!
                 var data_url = 'data:image/gif;base64,' + encode64(binary_gif);
