@@ -9,6 +9,7 @@ for (let code of fumenCodes) {
     let pages = decoder.decode(code);
     for (let i = 0; i < pages.length; i++) {
         pages[i].comment = '';
+        pages[i].quiz = false;
     }
     console.log(encoder.encode(pages));
 }
