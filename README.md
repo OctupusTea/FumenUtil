@@ -4,10 +4,16 @@ canvas, split, combine, glue, unglue
 
 Also, web interface available at https://swng.github.io/FumenUtil/
 
-# FumenCombiner
-Combines multiple fumens into a single multi-page fumens
+# RemoveComments
+Removes comments from fumens
 
-Supports multi-page fumens a s input
+# FumenCombiner
+Combines multiple fumens into a single multi-page fumens. Useful for shortening codes or standardizing codes.
+
+# Command
+```node removeComments.js fumencode1 fumencode2 fumencode3...```
+
+Supports multi-page fumens as input
 
 # Command
 ```node fumenCombiner.js fumencode1 fumencode2 fumencode3...```
