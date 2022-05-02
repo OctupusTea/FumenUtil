@@ -192,13 +192,18 @@ function glueFumen() {
 
 				newField = removeLineClears(newField);
 
-				const height = newField.str().split('\n').length - 1;
+                const height = newField.str().split('\n').length - 1;
+                
+                let oldLen = allPiecesArr.length;
 
 				let possPiecesArr = scanField(0, height, newField, newPiecesArr);
 
 				// if the field doesn't have any more pieces it's good
 				if (checkFieldEmpty(newField)) {
-					allPiecesArr.push(possPiecesArr);
+                    allPiecesArr.push(possPiecesArr);
+                } else if(oldLen == allPiecesArr.length){
+                    // the piece didn't result into a correct glued fumen
+                    found = false;
 				}
 			}
 		}
@@ -296,6 +301,11 @@ function glueFumen() {
                     }
                     let pieceFumen = encoder.encode(pages);
                     allFumens.push(pieceFumen);
+                }
+
+                if(allPiecesArr.length > 1){
+                    // multiple outputs warning
+                    console.log(code + " led to " + allPiecesArr.length + " outputs: " + allFumens.join(" "));
                 }
             }
         } catch (error) { console.log(code, error); }
