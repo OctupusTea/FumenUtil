@@ -80,5 +80,5 @@ function mirrorFumen() {
     }
 
     console.log(results.join(' '));
-    document.getElementById("output").value = results.join('\n');
+    document.getElementById("output").value = results.join(delimiter);
 }
