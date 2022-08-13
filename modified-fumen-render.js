@@ -166,19 +166,32 @@ function fumenrender() {
             if (pages.length == 1) {
                 canvas = fumen_draw(pages[0], cellSize, height, transparency_fumen);
 
-                documentCanvas = document.createElement('canvas');
-                documentCanvas.style.padding = '18px';
-                container.appendChild(documentCanvas);
+                // documentCanvas = document.createElement('canvas');
+                // documentCanvas.style.padding = '18px';
+                // container.appendChild(documentCanvas);
 
-                var ctx = documentCanvas.getContext('2d');
-                documentCanvas.height = canvas.height;
-                documentCanvas.width = canvas.width;
+                // var ctx = documentCanvas.getContext('2d');
+                // documentCanvas.height = canvas.height;
+                // documentCanvas.width = canvas.width;
 
+                // results.push(canvas);
+
+                // ctx.drawImage(canvas, 0, 0);
+
+                // documentCanvas.style.border = '5px solid #555';
+
+                var data_url = canvas.toDataURL();
+                var img = document.createElement('img');
+                img.style.padding = '8px';
+                img.src = data_url;
+                
+                img.style.margin = '1px';
+                img.style.outline = '2px solid #555';
+
+                container.appendChild(img);
                 results.push(canvas);
 
-                ctx.drawImage(canvas, 0, 0);
 
-                documentCanvas.style.border = '5px solid #555';
             }
             if (pages.length > 1) {
                 gif = fumen_drawFumens(pages, cellSize, height, start, end, transparency_fumen);
@@ -186,10 +199,11 @@ function fumenrender() {
                 var binary_gif = gif.stream().getData(); //notice this is different from the as3gif package!
                 var data_url = 'data:image/gif;base64,' + encode64(binary_gif);
                 var img = document.createElement('img');
-                img.style.padding = '18px';
+                img.style.padding = '8px';
                 img.src = data_url;
 
-                img.style.border = '5px solid #555';
+                img.style.margin = '1px';
+                img.style.outline = '2px solid #555';
 
                 container.appendChild(img);
                 results.push(gif);
