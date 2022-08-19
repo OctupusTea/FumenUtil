@@ -201,7 +201,7 @@ function fumencanvas() {
                 img.src = data_url;
 
                 img.style.margin = '1px'
-                img.style.outline = '5px solid #555';
+                img.style.outline = '2px solid #555';
 
                 container.appendChild(img);
                 results.push(gif);
