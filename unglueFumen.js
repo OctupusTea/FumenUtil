@@ -112,7 +112,7 @@ for (let code of fumenCodes) {
         for (let row of temp) {
             if (!rowsCleared.includes(row)) {
                 rowsCleared.push(row);
-                rowsCleared.sort();
+                rowsCleared.sort(function(a,b){return a-b});
             }
         }
         
